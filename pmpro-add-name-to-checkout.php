@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Add Name to Checkout Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-add-name-to-checkout/
 Description: Adds first and last name fields to the user account section at checkout for Paid Memberships Pro.
-Version: .2
+Version: .3
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -34,6 +34,9 @@ function pmproan2c_pmpro_registration_checks()
 		$first_name = $_REQUEST['first_name'];
 	elseif(!empty($_SESSION['first_name']))
 		$first_name = $_SESSION['first_name'];
+	elseif(is_user_logged_in()) {
+		$first_name = $current_user->first_name;
+	}
 	else
 		$first_name = "";
 	
@@ -41,6 +44,9 @@ function pmproan2c_pmpro_registration_checks()
 		$last_name = $_REQUEST['last_name'];
 	elseif(!empty($_SESSION['last_name']))
 		$last_name = $_SESSION['last_name'];
+	elseif(is_user_logged_in()) {
+		$last_name = $current_user->last_name;
+	}
 	else
 		$last_name = "";
 
@@ -61,10 +67,15 @@ add_filter("pmpro_registration_checks", "pmproan2c_pmpro_registration_checks");
 //update the user after checkout
 function pmproan2c_update_first_and_last_name_after_checkout($user_id)
 {
+	global $current_user;
+
 	if(!empty($_REQUEST['first_name']))
 		$first_name = $_REQUEST['first_name'];
 	elseif(!empty($_SESSION['first_name']))
 		$first_name = $_SESSION['first_name'];
+	elseif(is_user_logged_in()) {
+		$first_name = $current_user->first_name;
+	}
 	else
 		$first_name = "";
 	
@@ -72,6 +83,9 @@ function pmproan2c_update_first_and_last_name_after_checkout($user_id)
 		$last_name = $_REQUEST['last_name'];
 	elseif(!empty($_SESSION['last_name']))
 		$last_name = $_SESSION['last_name'];
+	elseif(is_user_logged_in()) {
+		$last_name = $current_user->last_name;
+	}
 	else
 		$last_name = "";
 
