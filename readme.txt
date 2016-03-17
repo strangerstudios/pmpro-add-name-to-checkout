@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, first name, fname, last name, lname, names
 Requires at least: 3.5
 Tested up to: 4.4.2
-Stable tag: .3
+Stable tag: .3.1
 
 Adds first and last name fields to the Paid Memberships Pro checkout page.
 
@@ -28,6 +28,10 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .3.1 =
+* BUG: Fixed error when PHP short tags is disabled.
+* BUG: Fixed some warnings.
+
 = .3 =
 * BUG: Fixed issue where first and last name were being "blanked out" when logged in users checked out again.
 
