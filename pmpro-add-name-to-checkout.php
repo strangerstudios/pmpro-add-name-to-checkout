@@ -11,6 +11,11 @@ Author URI: http://www.strangerstudios.com
 //add the fields to the form
 function pmproan2c_pmpro_checkout_after_password()
 {
+	global $pmpro_required_user_fields;
+
+        $pmpro_required_user_fields[] = 'first_name';
+        $pmpro_required_user_fields[] = 'last_name';
+        
 	if(!empty($_REQUEST['first_name']))
 		$first_name = $_REQUEST['first_name'];
 	elseif(!empty($_SESSION['first_name']))
@@ -33,11 +38,11 @@ function pmproan2c_pmpro_checkout_after_password()
 	?>
 	<div>
 	<label for="first_name">First Name</label>
-	<input id="first_name" name="first_name" type="text" class="input pmpro_required" size="30" value="<?php echo $first_name; ?>" />
+	<input id="first_name" name="first_name" type="text" class="input <?php echo pmpro_getClassForField("first_name");?>" size="30" value="<?php echo $first_name; ?>" />
 	</div>
 	<div>
 	<label for="last_name">Last Name</label>
-	<input id="last_name" name="last_name" type="text" class="input pmpro_required" size="30" value="<?php echo $last_name; ?>" />
+	<input id="last_name" name="last_name" type="text" class="input <?php echo pmpro_getClassForField("last_name");?>" size="30" value="<?php echo $last_name; ?>" />
 	</div> 
 	<?php
 }
@@ -46,7 +51,7 @@ add_action('pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_pass
 //require the fields
 function pmproan2c_pmpro_registration_checks()
 {
-	global $pmpro_msg, $pmpro_msgt, $current_user;
+	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields;
 	if(!empty($_REQUEST['first_name']))
 		$first_name = $_REQUEST['first_name'];
 	elseif(!empty($_SESSION['first_name']))
@@ -76,6 +81,8 @@ function pmproan2c_pmpro_registration_checks()
 	{
 		$pmpro_msg = "The first and last name fields are required.";
 		$pmpro_msgt = "pmpro_error";
+                if(!$first_name) $pmpro_error_fields[]= 'first_name';
+                if(!$last_name) $pmpro_error_fields[]= 'last_name';
 		return false;
 	}
 }
