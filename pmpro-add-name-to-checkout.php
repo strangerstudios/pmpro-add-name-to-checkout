@@ -3,7 +3,9 @@
 Plugin Name: Paid Memberships Pro - Add Name to Checkout Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-add-name-to-checkout/
 Description: Adds first and last name fields to the user account section at checkout for Paid Memberships Pro.
-Version: .3.1
+Version: .4
+Text Domain: pmpro-add-name-to-checkout
+Domain Path: /languages
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -32,11 +34,11 @@ function pmproan2c_pmpro_checkout_after_password()
 		$last_name = "";
 	?>
 	<div>
-	<label for="first_name">First Name</label>
+	<label for="first_name"><?php _e("First Name", "pmpro"); ?></label>
 	<input id="first_name" name="first_name" type="text" class="input pmpro_required" size="30" value="<?php echo $first_name; ?>" />
 	</div>
 	<div>
-	<label for="last_name">Last Name</label>
+	<label for="last_name"><?php _e("Last Name", "pmpro" ); ?></label>
 	<input id="last_name" name="last_name" type="text" class="input pmpro_required" size="30" value="<?php echo $last_name; ?>" />
 	</div> 
 	<?php
@@ -74,7 +76,7 @@ function pmproan2c_pmpro_registration_checks()
 	}
 	else
 	{
-		$pmpro_msg = "The first and last name fields are required.";
+		$pmpro_msg = __("The first and last name fields are required.", "pmpro-add-name-to-checkout");
 		$pmpro_msgt = "pmpro_error";
 		return false;
 	}
