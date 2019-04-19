@@ -14,6 +14,8 @@ Author URI: http://www.strangerstudios.com
  * Add the fields to the form.
  */
 function pmproan2c_pmpro_checkout_after_password() {
+	global $current_user;
+	
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -45,6 +47,29 @@ function pmproan2c_pmpro_checkout_after_password() {
 	<?php
 }
 add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_password' );
+
+/**
+ * If the user is logged in, we still want to show our version of the account info section.
+ */
+function pmproan2c_account_info_when_logged_in() {
+	global $current_user;
+	
+	if ( ! is_user_logged_in() ) {
+		return;
+	}	
+	?>
+	<hr />
+	<div id="pmpro_user_fields" class="pmpro_checkout">
+		<h3>
+			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>			
+		</h3>
+		<div class="pmpro_checkout-fields">
+			<?php pmproan2c_pmpro_checkout_after_password(); ?>
+		</div>
+	</div>
+	<?php
+}
+add_action( 'pmpro_checkout_after_pricing_fields', 'pmproan2c_account_info_when_logged_in' );
 
 /**
  * Require the fields.

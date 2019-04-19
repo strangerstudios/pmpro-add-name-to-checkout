@@ -35,6 +35,7 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 * BUG FIX/ENHANCEMENT: Using trim() when checking name fields to disallow blank names.
 * ENHANCEMENT: Make add-on translation ready. (Thanks, Thomas Sjolshagen)
 * ENHANCEMENT: WordPress coding standards.
+* FEATURE: Now showing the User Information section with name fields if a user is already logged in at checkout.
 
 = .3.1 =
 * BUG: Fixed error when PHP short tags is disabled.
