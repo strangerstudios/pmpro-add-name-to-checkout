@@ -30,8 +30,9 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 == Changelog ==
 = .4 =
 * SECURITY: Properly sanitizing and escaping user input.
-* BUG FIX/ENHANCEMENT: Using pmpro_getClassForField() to set class attributes on field tags. (Thanks, Ted Barnett) 
+* BUG FIX/ENHANCEMENT: Using pmpro_getClassForField() to set class attributes on field tags. (Thanks, Ted Barnett)
 * BUG FIX/ENHANCEMENT: Added pmpro_checkout-field/etc classes to wrapping divs for field to match the core PMPro checkout fields and allow for easier styling. (Thanks, Mark Bloomfield)
+* BUG FIX/ENHANCEMENT: Using trim() when checking name fields to disallow blank names.
 * ENHANCEMENT: Make add-on translation ready. (Thanks, Thomas Sjolshagen)
 * ENHANCEMENT: WordPress coding standards.
 
