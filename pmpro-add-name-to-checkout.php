@@ -33,11 +33,11 @@ function pmproan2c_pmpro_checkout_after_password()
 	else
 		$last_name = "";
 	?>
-	<div>
+  <div class="pmpro_checkout-field pmpro_checkout-field-firstname">
 	<label for="first_name"><?php _e("First Name", "pmpro"); ?></label>
 	<input id="first_name" name="first_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField("first_name");?>" size="30" value="<?php echo $first_name; ?>" />
 	</div>
-	<div>
+	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
 	<label for="last_name"><?php _e("Last Name", "pmpro" ); ?></label>
 	<input id="last_name" name="last_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField("last_name");?>" size="30" value="<?php echo $last_name; ?>" />
 	</div> 
