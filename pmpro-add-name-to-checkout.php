@@ -3,7 +3,9 @@
 Plugin Name: Paid Memberships Pro - Add Name to Checkout Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-add-name-to-checkout/
 Description: Adds first and last name fields to the user account section at checkout for Paid Memberships Pro.
-Version: .3.1
+Version: .4
+Text Domain: pmpro-add-name-to-checkout
+Domain Path: /languages
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -31,13 +33,13 @@ function pmproan2c_pmpro_checkout_after_password()
 	else
 		$last_name = "";
 	?>
-	<div class="pmpro_checkout-field pmpro_checkout-field-firstname">
-	<label for="first_name">First Name</label>
-	<input id="first_name" name="first_name" type="text" class="input pmpro_required" size="30" value="<?php echo $first_name; ?>" />
+  <div class="pmpro_checkout-field pmpro_checkout-field-firstname">
+	<label for="first_name"><?php _e("First Name", "pmpro"); ?></label>
+	<input id="first_name" name="first_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField("first_name");?>" size="30" value="<?php echo $first_name; ?>" />
 	</div>
 	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
-	<label for="last_name">Last Name</label>
-	<input id="last_name" name="last_name" type="text" class="input pmpro_required" size="30" value="<?php echo $last_name; ?>" />
+	<label for="last_name"><?php _e("Last Name", "pmpro" ); ?></label>
+	<input id="last_name" name="last_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField("last_name");?>" size="30" value="<?php echo $last_name; ?>" />
 	</div> 
 	<?php
 }
@@ -46,7 +48,7 @@ add_action('pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_pass
 //require the fields
 function pmproan2c_pmpro_registration_checks()
 {
-	global $pmpro_msg, $pmpro_msgt, $current_user;
+	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields;
 	if(!empty($_REQUEST['first_name']))
 		$first_name = $_REQUEST['first_name'];
 	elseif(!empty($_SESSION['first_name']))
@@ -74,8 +76,10 @@ function pmproan2c_pmpro_registration_checks()
 	}
 	else
 	{
-		$pmpro_msg = "The first and last name fields are required.";
+		$pmpro_msg = __("The first and last name fields are required.", "pmpro-add-name-to-checkout");
 		$pmpro_msgt = "pmpro_error";
+                if(!$first_name) $pmpro_error_fields[]= 'first_name';
+                if(!$last_name) $pmpro_error_fields[]= 'last_name';
 		return false;
 	}
 }
