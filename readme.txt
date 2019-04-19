@@ -2,7 +2,7 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, first name, fname, last name, lname, names
 Requires at least: 3.5
-Tested up to: 4.4.2
+Tested up to: 5.1.1
 Stable tag: .4
 
 Adds first and last name fields to the Paid Memberships Pro checkout page.
@@ -29,7 +29,11 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 
 == Changelog ==
 = .4 =
-* ENHANCEMENT: Make add-on translation ready
+* SECURITY: Properly sanitizing and escaping user input.
+* BUG FIX/ENHANCEMENT: Using pmpro_getClassForField() to set class attributes on field tags. (Thanks, Ted Barnett) 
+* BUG FIX/ENHANCEMENT: Added pmpro_checkout-field/etc classes to wrapping divs for field to match the core PMPro checkout fields and allow for easier styling. (Thanks, Mark Bloomfield)
+* ENHANCEMENT: Make add-on translation ready. (Thanks, Thomas Sjolshagen)
+* ENHANCEMENT: WordPress coding standards.
 
 = .3.1 =
 * BUG: Fixed error when PHP short tags is disabled.

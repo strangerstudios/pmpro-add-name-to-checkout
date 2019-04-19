@@ -10,7 +10,9 @@ Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
 
-//add the fields to the form
+/**
+ * Add the fields to the form.
+ */
 function pmproan2c_pmpro_checkout_after_password() {
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
@@ -44,7 +46,9 @@ function pmproan2c_pmpro_checkout_after_password() {
 }
 add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_password' );
 
-//require the fields
+/**
+ * Require the fields.
+ */
 function pmproan2c_pmpro_registration_checks() {
 	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields;
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
@@ -84,7 +88,9 @@ function pmproan2c_pmpro_registration_checks() {
 }
 add_filter( 'pmpro_registration_checks', 'pmproan2c_pmpro_registration_checks' );
 
-//update the user after checkout
+/**
+ * Update the user after checkout.
+ */
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	global $current_user;
 
@@ -113,16 +119,19 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 }
 add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_checkout' );
 
+/**
+ * Save our added fields in session while the user goes off to PayPal/etc
+ */
 function pmproan2c_pmpro_paypalexpress_session_vars() {
-	//save our added fields in session while the user goes off to PayPal
 	$_SESSION['first_name'] = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	$_SESSION['last_name']  = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmproan2c_pmpro_paypalexpress_session_vars' );
+add_action( 'pmpro_before_send_to_twocheckout', 'pmproan2c_pmpro_paypalexpress_session_vars' );
 
-/*
-Function to add links to the plugin row meta
-*/
+/**
+ * Add links to the plugin row meta
+ */
 function pmproan2c_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-add-name-to-checkout.php' ) !== false ) {
 		$new_links = array(
