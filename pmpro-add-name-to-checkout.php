@@ -8,7 +8,18 @@ Text Domain: pmpro-add-name-to-checkout
 Domain Path: /languages
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
+Text Domain: pmpro-add-name-to-checkout
+Domain Path: /languages
 */
+
+/**
+ * Load text domain
+ * pmproan2c_load_plugin_text_domain
+ */
+function pmproan2c_load_plugin_text_domain() {
+	load_plugin_textdomain( 'pmpro-add-name-to-checkout', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
+}
+add_action( 'plugins_loaded', 'pmproan2c_load_plugin_text_domain' ); 
 
 /**
  * Add the fields to the form.
@@ -37,11 +48,11 @@ function pmproan2c_pmpro_checkout_after_password() {
 	}
 	?>
 	<div class="pmpro_checkout-field pmpro_checkout-field-firstname">
-		<label for="first_name"><?php _e( 'First Name', 'pmpro' ); ?></label>
+		<label for="first_name"><?php _e( 'First Name', 'paid-memberships-pro' ); ?></label>
 		<input id="first_name" name="first_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField( 'first_name' ); ?>" size="30" value="<?php echo esc_attr( $first_name ); ?>" />
 	</div>
 	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
-		<label for="last_name"><?php _e( 'Last Name', 'pmpro' ); ?></label>
+		<label for="last_name"><?php _e( 'Last Name', 'paid-memberships-pro' ); ?></label>
 		<input id="last_name" name="last_name" type="text" class="input pmpro_required <?php echo pmpro_getClassForField( 'last_name' ); ?>" size="30" value="<?php echo esc_attr( $last_name ); ?>" />
 	</div> 
 	<?php
@@ -160,7 +171,7 @@ add_action( 'pmpro_before_send_to_twocheckout', 'pmproan2c_pmpro_paypalexpress_s
 function pmproan2c_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-add-name-to-checkout.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-add-name-to-checkout' ) ) . '">' . __( 'Support', 'pmpro-add-name-to-checkout' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'paid-memberships-pro' ) ) . '">' . __( 'Support', 'paid-memberships-pro' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
 	}
