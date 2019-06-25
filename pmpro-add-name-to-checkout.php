@@ -72,7 +72,7 @@ function pmproan2c_account_info_when_logged_in() {
 	<hr />
 	<div id="pmpro_user_fields" class="pmpro_checkout">
 		<h3>
-			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>			
+			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'paid-memberships-pro' );?></span>			
 		</h3>
 		<div class="pmpro_checkout-fields">
 			<?php pmproan2c_pmpro_checkout_after_password(); ?>
