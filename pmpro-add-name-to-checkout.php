@@ -19,7 +19,7 @@ Domain Path: /languages
 function pmproan2c_load_plugin_text_domain() {
 	load_plugin_textdomain( 'pmpro-add-name-to-checkout', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
 }
-add_action( 'plugins_loaded', 'pmproan2c_load_plugin_text_domain' ); 
+add_action( 'init', 'pmproan2c_load_plugin_text_domain' ); 
 
 /**
  * Add the fields to the form.
