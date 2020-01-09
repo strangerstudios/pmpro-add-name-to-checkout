@@ -96,7 +96,7 @@ function pmproan2c_pmpro_registration_checks() {
 		$last_name = '';
 	}
 
-	if ( $first_name && $last_name || $current_user->ID ) {
+	if ( $first_name && $last_name ) {
 		//all good
 		return true;
 	} else {
