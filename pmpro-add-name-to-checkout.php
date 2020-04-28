@@ -13,8 +13,10 @@ Author URI: http://www.strangerstudios.com
 /**
  * Add the fields to the form.
  */
+global $pmproan2c_add_middle_name;
+$pmproan2c_add_middle_name = false;
 function pmproan2c_pmpro_checkout_after_password() {
-	global $current_user;
+	global $current_user, $pmproan2c_add_middle_name;
 
 	/**
 	 * Allow others to make the first name required or not.
@@ -33,7 +35,16 @@ function pmproan2c_pmpro_checkout_after_password() {
 	 * @param bool `true` for required, `false` if not.
 	 */
 	$last_name_required = apply_filters( 'pmproan2c_last_name_required', true );
-	
+
+	/**
+	 * Allow others to make the first middle name required or not.
+	 *
+	 * @since 0.5
+	 *
+	 * @param bool `true` for required, `false` if not.
+	 */
+	$middle_name_required = apply_filters( 'pmproan2c_middle_name_required', false );
+
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -42,6 +53,16 @@ function pmproan2c_pmpro_checkout_after_password() {
 		$first_name = $current_user->first_name;
 	} else {
 		$first_name = '';
+	}
+
+	if ( ! empty( $_REQUEST['middle_name'] ) ) {
+		$middle_name = sanitize_text_field( $_REQUEST['middle_name'] );
+	} elseif ( ! empty( $_SESSION['middle_name'] ) ) {
+		$middle_name = sanitize_text_field( $_SESSION['middle_name'] );
+	} elseif ( is_user_logged_in() ) {
+		$middle_name = get_user_meta( $current_user->ID, 'middle_name', true );
+	} else {
+		$middle_name = '';
 	}
 
 	if ( ! empty( $_REQUEST['last_name'] ) ) {
@@ -58,6 +79,16 @@ function pmproan2c_pmpro_checkout_after_password() {
 		<label for="first_name"><?php _e( 'First Name', 'pmpro' ); ?></label>
 		<input id="first_name" name="first_name" type="text" class="input <?php echo $first_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'first_name' ); ?>" size="30" value="<?php echo esc_attr( $first_name ); ?>" />
 	</div>
+	<?php
+	if ( $pmproan2c_add_middle_name ) {
+		?>
+		<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
+			<label for="middle_name"><?php esc_html_e( 'Middle Name', 'pmpro' ); ?></label>
+			<input id="middle_name" name="middle_name" type="text" class="input <?php echo $middle_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo esc_attr( pmpro_getClassForField( 'middle_name' ) ); ?>" size="30" value="<?php echo esc_attr( $middle_name ); ?>" />
+		</div>
+		<?php
+	}
+	?>
 	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
 		<label for="last_name"><?php _e( 'Last Name', 'pmpro' ); ?></label>
 		<input id="last_name" name="last_name" type="text" class="input <?php echo $last_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'last_name' ); ?>" size="30" value="<?php echo esc_attr( $last_name ); ?>" />
@@ -95,7 +126,7 @@ add_action( 'pmpro_checkout_after_pricing_fields', 'pmproan2c_account_info_when_
  * @return bool `true` if registration check passed, `false` if not.
  */
 function pmproan2c_pmpro_registration_checks() {
-	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields;
+	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields, $pmproan2c_add_middle_name;
 
 	$pmproan2c_error_fields  = array();
 	$pmproan2c_error_message = '';
@@ -106,8 +137,9 @@ function pmproan2c_pmpro_registration_checks() {
 	 *
 	 * @see pmproan2c_pmpro_checkout_after_password for filter definitions.
 	 */
-	$first_name_required = apply_filters( 'pmproan2c_first_name_required', true );
-	$last_name_required  = apply_filters( 'pmproan2c_last_name_required', true );
+	$first_name_required  = apply_filters( 'pmproan2c_first_name_required', true );
+	$middle_name_required = apply_filters( 'pmproan2c_middle_name_required', false );
+	$last_name_required   = apply_filters( 'pmproan2c_last_name_required', true );
 
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
@@ -117,6 +149,16 @@ function pmproan2c_pmpro_registration_checks() {
 		$first_name = $current_user->first_name;
 	} else {
 		$first_name = '';
+	}
+
+	if ( isset( $_REQUEST[ 'middle_name'] ) ) {
+		$middle_name = trim( sanitize_text_field( $_REQUEST['middle_name'] ) );
+	} elseif ( isset( $_SESSION['middle_name'] ) ) {
+		$middle_name = trim( sanitize_text_field( $_SESSION['middle_name'] ) );
+	} elseif ( is_user_logged_in() ) {
+		$middle_name = get_user_meta( $current_user->ID, 'middle_name', true );
+	} else {
+		$middle_name = '';
 	}
 
 	if ( ! empty( $_REQUEST['last_name'] ) ) {
@@ -129,16 +171,20 @@ function pmproan2c_pmpro_registration_checks() {
 		$last_name = '';
 	}
 
-	if ( $first_name && $last_name || $current_user->ID ) {
+	if ( ( $first_name && $last_name && ! ( $first_name && $last_name && $pmproan2c_add_middle_name && $middle_name_required && ! $middle_name ) ) || $current_user->ID ) {
 		//all good
 		return true;
 	} else {
-		if ( $first_name_required && $last_name_required ) {
-			$pmproan2c_error_message = __( 'The first and last name fields are required.', 'pmpro-add-name-to-checkout' );
+		if ( $first_name_required && $last_name_required && $middle_name_required ) {
+			$pmproan2c_error_message = __( 'The first, middle, and last name fields are required.', 'pmpro-add-name-to-checkout' );
+		} elseif ( $first_name_required && $last_name_required ) {
+			$pmproan2c_error_message = __( 'The first and last name fields are required.', 'pmpro-add-name-to-checkout' );	
 		} elseif ( $first_name_required ) {
 			$pmproan2c_error_message = __( 'The first name field is required.', 'pmpro-add-name-to-checkout' );
 		} elseif ( $last_name_required ) {
 			$pmproan2c_error_message = __( 'The last name field is required.', 'pmpro-add-name-to-checkout' );
+		} elseif ( $middle_name_required ) {
+			$pmproan2c_error_message = __( 'The middle name field is required.', 'pmpro-add-name-to-checkout' );
 		}
 
 		if ( ! $first_name && $first_name_required ) {
@@ -146,6 +192,9 @@ function pmproan2c_pmpro_registration_checks() {
 		}
 		if ( ! $last_name && $last_name_required ) {
 			$pmproan2c_error_fields[] = 'last_name';
+		}
+		if ( ! $middle_name && $middle_name_required ) {
+			$pmproan2c_error_fields[] = 'middle_name';
 		}
 	}
 	if ( empty( $pmproan2c_error_fields ) ) {
@@ -167,7 +216,7 @@ add_filter( 'pmpro_registration_checks', 'pmproan2c_pmpro_registration_checks' )
  * Update the user after checkout.
  */
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
-	global $current_user;
+	global $current_user, $pmproan2c_add_middle_name;
 
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
@@ -177,6 +226,16 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 		$first_name = $current_user->first_name;
 	} else {
 		$first_name = '';
+	}
+
+	if ( ! empty( $_REQUEST['middle_name'] ) ) {
+		$middle_name = trim( sanitize_text_field( $_REQUEST['middle_name'] ) );
+	} elseif ( ! empty( $_SESSION['middle_name'] ) ) {
+		$middle_name = trim( sanitize_text_field( $_SESSION['middle_name'] ) );
+	} elseif ( is_user_logged_in() ) {
+		$middle_name = get_user_meta( $current_user->ID, 'middle_name', true );
+	} else {
+		$middle_name = '';
 	}
 
 	if ( ! empty( $_REQUEST['last_name'] ) ) {
@@ -189,6 +248,9 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 		$last_name = '';
 	}
 
+	if ( $pmproan2c_add_middle_name ) {
+		update_user_meta( $user_id, 'middle_name', $middle_name );
+	}
 	update_user_meta( $user_id, 'first_name', $first_name );
 	update_user_meta( $user_id, 'last_name', $last_name );
 }
@@ -198,8 +260,12 @@ add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_
  * Save our added fields in session while the user goes off to PayPal/etc
  */
 function pmproan2c_pmpro_paypalexpress_session_vars() {
+	global $pmproan2c_add_middle_name;
 	$_SESSION['first_name'] = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	$_SESSION['last_name']  = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+	if ( $pmproan2c_add_middle_name ) {
+		$_SESSION['middle_name']  = trim( sanitize_text_field( $_REQUEST['middle_name'] ) );
+	}
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmproan2c_pmpro_paypalexpress_session_vars' );
 add_action( 'pmpro_before_send_to_twocheckout', 'pmproan2c_pmpro_paypalexpress_session_vars' );
