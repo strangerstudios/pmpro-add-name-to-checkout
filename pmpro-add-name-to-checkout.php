@@ -329,8 +329,6 @@ add_action( 'personal_options_update', 'pmproan2c_user_profile' );
 
 /**
  * Add the middle name to the display name.
- *
- * @return string Display name.
  */
 function pmproan2c_filter_user_display_name() {
 	global $pmproan2c_add_middle_name, $current_user;
@@ -349,9 +347,15 @@ function pmproan2c_filter_user_display_name() {
 			$middle_name,
 			$last_name
 		);
+		// PMPro Compatibility.
+		if ( isset( $current_user->user_firstname ) && isset( $current_user->user_lastname ) ) {
+			$current_user->user_lastname  = '';
+			$current_user->user_firstname = sanitize_text_field( $display_name );
+		}
 		if ( $current_user->display_name === $display_name ) {
 			return;
 		}
+		// Update the user's display name once or on change of middle name.
 		wp_update_user(
 			array(
 				'ID'           => absint( $current_user->ID ),
