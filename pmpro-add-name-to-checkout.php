@@ -316,6 +316,8 @@ add_action( 'admin_print_scripts-profile.php', 'pmproan2c_enqueue_scripts' );
 
 /**
  * Save Middle Name to User Meta.
+ *
+ * @param int $user_id The user id to update.
  */
 function pmproan2c_user_profile( $user_id ) {
 	check_admin_referer( 'update-user_' . $user_id );
@@ -324,3 +326,38 @@ function pmproan2c_user_profile( $user_id ) {
 }
 add_action( 'edit_user_profile_update', 'pmproan2c_user_profile' );
 add_action( 'personal_options_update', 'pmproan2c_user_profile' );
+
+/**
+ * Add the middle name to the display name.
+ *
+ * @return string Display name.
+ */
+function pmproan2c_filter_user_display_name() {
+	global $pmproan2c_add_middle_name, $current_user, $user_identity;
+
+	if ( ! is_user_logged_in() || ! $pmproan2c_add_middle_name ) {
+		return;
+	}
+	$display_name = $current_user->display_name;
+	$first_name   = $current_user->first_name;
+	$middle_name  = get_user_meta( $current_user->ID, 'middle_name', true );
+	$last_name    = $current_user->last_name;
+	if ( $middle_name && $first_name && $last_name ) {
+		$display_name               = sprintf(
+			'%s %s %s',
+			$first_name,
+			$middle_name,
+			$last_name
+		);
+		if ( $current_user->display_name === $display_name ) {
+			return;
+		}
+		wp_update_user(
+			array(
+				'ID'           => $current_user->ID,
+				'display_name' => $display_name,
+			)
+		);
+	}
+}
+add_action( 'init', 'pmproan2c_filter_user_display_name', 10, 2 );
