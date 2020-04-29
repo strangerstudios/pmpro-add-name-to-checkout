@@ -283,3 +283,44 @@ function pmproan2c_plugin_row_meta( $links, $file ) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'pmproan2c_plugin_row_meta', 10, 2 );
+
+/**
+ * Enqueue scripts on the user profile page.
+ */
+function pmproan2c_enqueue_scripts() {
+		// Get user ID.
+		$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0;
+		if ( 0 === $user_id && IS_PROFILE_PAGE ) {
+			$current_user = wp_get_current_user();
+			$user_id      = $current_user->ID;
+		}
+		$middle_name = get_user_meta( $user_id, 'middle_name', true );
+		wp_enqueue_script(
+			'pmproan2c_user_profile',
+			plugins_url( '/js/add-middle-name-profile.js', __FILE__ ),
+			array( 'jquery' ),
+			'0.4.0',
+			true
+		);
+		wp_localize_script(
+			'pmproan2c_user_profile',
+			'pmproan2c',
+			array(
+				'middle_name'        => sanitize_text_field( $middle_name ),
+				'middle_name_string' => __( 'Middle Name', 'pmpro-add-name-to-checkout' ),
+			)
+		);
+}
+add_action( 'admin_print_scripts-user-edit.php', 'pmproan2c_enqueue_scripts' );
+add_action( 'admin_print_scripts-profile.php', 'pmproan2c_enqueue_scripts' );
+
+/**
+ * Save Middle Name to User Meta.
+ */
+function pmproan2c_user_profile( $user_id ) {
+	check_admin_referer( 'update-user_' . $user_id );
+	$middle_name = sanitize_text_field( trim( filter_input( INPUT_POST, 'middle_name' ) ) );
+	update_user_meta( $user_id, 'middle_name', $middle_name );
+}
+add_action( 'edit_user_profile_update', 'pmproan2c_user_profile' );
+add_action( 'personal_options_update', 'pmproan2c_user_profile' );
