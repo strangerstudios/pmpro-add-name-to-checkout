@@ -333,7 +333,7 @@ add_action( 'personal_options_update', 'pmproan2c_user_profile' );
  * @return string Display name.
  */
 function pmproan2c_filter_user_display_name() {
-	global $pmproan2c_add_middle_name, $current_user, $user_identity;
+	global $pmproan2c_add_middle_name, $current_user;
 
 	if ( ! is_user_logged_in() || ! $pmproan2c_add_middle_name ) {
 		return;
@@ -354,8 +354,8 @@ function pmproan2c_filter_user_display_name() {
 		}
 		wp_update_user(
 			array(
-				'ID'           => $current_user->ID,
-				'display_name' => $display_name,
+				'ID'           => absint( $current_user->ID ),
+				'display_name' => sanitize_text_field( $display_name ),
 			)
 		);
 	}
