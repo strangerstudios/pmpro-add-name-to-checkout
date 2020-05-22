@@ -145,6 +145,26 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_checkout' );
 
 /**
+ * Update the name on the order.
+ */
+function pmproan2c_pmpro_checkout_order( $order ) {
+	if ( empty( $order->FirstName ) ) {
+		$order->FirstName = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
+	}
+	
+	if ( empty( $order->LastName ) ) {
+		$order->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+	}
+	
+	if ( ! empty( $order->billing ) && empty( trim( $order->billing->name ) ) ) {
+		$order->billing->name = trim( sanitize_text_field( $_REQUEST['first_name'] ) ) . ' ' . trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+	}
+	
+	return $order;
+}
+add_filter( 'pmpro_checkout_order', 'pmproan2c_pmpro_checkout_order' );
+
+/**
  * Save our added fields in session while the user goes off to PayPal/etc
  */
 function pmproan2c_pmpro_paypalexpress_session_vars() {
