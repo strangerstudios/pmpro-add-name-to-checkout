@@ -207,13 +207,21 @@ function pmproan2c_pmpro_checkout_order( $order ) {
 		$order->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	}
 	
-	if ( ! empty( $order->billing ) && empty( trim( $order->billing->name ) ) ) {
+	// Free orders won't have a billing object.
+	if ( empty( $order->billing ) ) {
+		$order->billing = new stdClass();
+		$order->billing->name = '';
+	}
+	
+	// Trimming because something in testing was adding spaces.
+	if ( empty( trim( $order->billing->name ) ) ) {
 		$order->billing->name = trim( sanitize_text_field( $_REQUEST['first_name'] ) ) . ' ' . trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	}
 	
 	return $order;
 }
 add_filter( 'pmpro_checkout_order', 'pmproan2c_pmpro_checkout_order' );
+add_filter( 'pmpro_checkout_order_free', 'pmproan2c_pmpro_checkout_order' );
 
 /**
  * Save our added fields in session while the user goes off to PayPal/etc
