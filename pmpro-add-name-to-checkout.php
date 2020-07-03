@@ -10,6 +10,14 @@ Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
 
+/*
+	Load plugin textdomain.
+*/
+function pmprorh_load_textdomain() {
+  load_plugin_textdomain( 'pmpro-add-name-to-checkout', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'pmprorh_load_textdomain' );
+
 /**
  * Add the fields to the form.
  */
@@ -33,7 +41,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 	 * @param bool `true` for required, `false` if not.
 	 */
 	$last_name_required = apply_filters( 'pmproan2c_last_name_required', true );
-	
+
 	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -61,7 +69,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
 		<label for="last_name"><?php _e( 'Last Name', 'pmpro' ); ?></label>
 		<input id="last_name" name="last_name" type="text" class="input <?php echo $last_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'last_name' ); ?>" size="30" value="<?php echo esc_attr( $last_name ); ?>" />
-	</div> 
+	</div>
 	<?php
 }
 add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_password' );
@@ -71,15 +79,15 @@ add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_pas
  */
 function pmproan2c_account_info_when_logged_in() {
 	global $current_user;
-	
+
 	if ( ! is_user_logged_in() ) {
 		return;
-	}	
+	}
 	?>
 	<hr />
 	<div id="pmpro_user_fields" class="pmpro_checkout">
 		<h3>
-			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>			
+			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>
 		</h3>
 		<div class="pmpro_checkout-fields">
 			<?php pmproan2c_pmpro_checkout_after_password(); ?>
@@ -202,22 +210,22 @@ function pmproan2c_pmpro_checkout_order( $order ) {
 	if ( empty( $order->FirstName ) ) {
 		$order->FirstName = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	}
-	
+
 	if ( empty( $order->LastName ) ) {
 		$order->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	}
-	
+
 	// Free orders won't have a billing object.
 	if ( empty( $order->billing ) ) {
 		$order->billing = new stdClass();
 		$order->billing->name = '';
 	}
-	
+
 	// Trimming because something in testing was adding spaces.
 	if ( empty( trim( $order->billing->name ) ) ) {
 		$order->billing->name = trim( sanitize_text_field( $_REQUEST['first_name'] ) ) . ' ' . trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	}
-	
+
 	return $order;
 }
 add_filter( 'pmpro_checkout_order', 'pmproan2c_pmpro_checkout_order' );
