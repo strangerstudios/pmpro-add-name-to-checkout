@@ -240,6 +240,7 @@ function pmproan2c_pmpro_paypalexpress_session_vars() {
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmproan2c_pmpro_paypalexpress_session_vars' );
 add_action( 'pmpro_before_send_to_twocheckout', 'pmproan2c_pmpro_paypalexpress_session_vars' );
+add_action( 'pmpro_before_send_to_payfast', 'pmproan2c_pmpro_paypalexpress_session_vars' );
 
 /**
  * Add links to the plugin row meta
