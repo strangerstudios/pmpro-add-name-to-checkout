@@ -63,11 +63,11 @@ function pmproan2c_pmpro_checkout_after_password() {
 	}
 	?>
 	<div class="pmpro_checkout-field pmpro_checkout-field-firstname">
-		<label for="first_name"><?php _e( 'First Name', 'pmpro' ); ?></label>
+		<label for="first_name"><?php _e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
 		<input id="first_name" name="first_name" type="text" class="input <?php echo $first_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'first_name' ); ?>" size="30" value="<?php echo esc_attr( $first_name ); ?>" />
 	</div>
 	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
-		<label for="last_name"><?php _e( 'Last Name', 'pmpro' ); ?></label>
+		<label for="last_name"><?php _e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
 		<input id="last_name" name="last_name" type="text" class="input <?php echo $last_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'last_name' ); ?>" size="30" value="<?php echo esc_attr( $last_name ); ?>" />
 	</div>
 	<?php
