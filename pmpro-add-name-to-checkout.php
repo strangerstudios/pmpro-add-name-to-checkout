@@ -16,7 +16,7 @@ Author URI: http://www.strangerstudios.com
 function pmproan2c_load_textdomain() {
   load_plugin_textdomain( 'pmpro-add-name-to-checkout', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
-add_action( 'plugins_loaded', 'pmproan2c_load_textdomain' );
+add_action( 'init', 'pmproan2c_load_textdomain' );
 
 /**
  * Add the fields to the form.
