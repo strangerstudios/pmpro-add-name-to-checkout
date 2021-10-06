@@ -1,2 +1,4 @@
 .gitattributes export-ignore
 .github export-ignore
+README.md export-ignore
+pmpro-add-name-to-checkout-banner.jpg
