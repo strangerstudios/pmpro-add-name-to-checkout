@@ -14,42 +14,36 @@ msgstr ""
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: pmpro-add-name-to-checkout\n"
 
-#: pmpro-add-name-to-checkout.php:90
-msgid "Account Information"
+#. Plugin Name of the plugin
+msgid "Paid Memberships Pro - Add Name to Checkout Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/"
 msgstr ""
 
 #. Description of the plugin
 msgid "Adds first and last name fields to the user account section at checkout for Paid Memberships Pro."
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:66
-msgid "First Name"
+#. Author of the plugin
+msgid "Stranger Studios"
 msgstr ""
 
 #. Author URI of the plugin
 msgid "http://www.strangerstudios.com"
 msgstr ""
 
-#. URI of the plugin
-#. Plugin URI of the plugin
-msgid "https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/"
+#: pmpro-add-name-to-checkout.php:66
+msgid "First Name"
 msgstr ""
 
 #: pmpro-add-name-to-checkout.php:70
 msgid "Last Name"
 msgstr ""
 
-#. Name of the plugin
-#. Plugin Name of the plugin
-msgid "Paid Memberships Pro - Add Name to Checkout Add On"
-msgstr ""
-
-#. Author of the plugin
-msgid "Stranger Studios"
-msgstr ""
-
-#: pmpro-add-name-to-checkout.php:251
-msgid "Support"
+#: pmpro-add-name-to-checkout.php:90
+msgid "Account Information"
 msgstr ""
 
 #: pmpro-add-name-to-checkout.php:145
@@ -66,4 +60,8 @@ msgstr ""
 
 #: pmpro-add-name-to-checkout.php:251
 msgid "Visit Customer Support Forum"
+msgstr ""
+
+#: pmpro-add-name-to-checkout.php:251
+msgid "Support"
 msgstr ""
