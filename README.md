@@ -3,10 +3,10 @@
 # [Add Name to Checkout](https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/) #
 [comment]: # (Generate badges from shields.io, only works for .org plugins to get other stats etc. We'd have to create our own endpoints for Premium plugins)
 
-![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dy/paid-memberships-pro?style=flat-square) ![Travis (.org)](https://img.shields.io/travis/strangerstudios/paid-memberships-pro?style=flat-square) ![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg?style=flat-square)
+![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg?style=flat-square)
 
 ### Welcome to the Add Name to Checkout GitHub Repository
-Add a description of the product here.
+Adds "First Name" and "Last Name" fields to the "Account Information" section of the Membership Checkout page when using Paid Memberships Pro.
 
 For more information please visit [https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/](https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/)
 
