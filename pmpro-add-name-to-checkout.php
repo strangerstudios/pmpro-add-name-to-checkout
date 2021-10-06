@@ -255,3 +255,23 @@ function pmproan2c_plugin_row_meta( $links, $file ) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'pmproan2c_plugin_row_meta', 10, 2 );
+
+
+/**
+ * Adds support for Payfast
+ */
+
+function pmproan2c_before_send_to_payfast( $user_id, $morder ){
+
+	if ( empty( $morder->FirstName ) ) {
+		$morder->FirstName = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
+	}
+
+	if ( empty( $morder->LastName ) ) {
+		$morder->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+	}
+
+	$morder->saveOrder();
+
+}
+add_action( 'pmpro_before_send_to_payfast', 'pmproan2c_before_send_to_payfast', 10, 2 );
