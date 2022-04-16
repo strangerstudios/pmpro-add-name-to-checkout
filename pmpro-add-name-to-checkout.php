@@ -199,6 +199,7 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 
 	update_user_meta( $user_id, 'first_name', $first_name );
 	update_user_meta( $user_id, 'last_name', $last_name );
+	update_user_meta( $user_id, 'display_name', $first_name . ' ' . $last_name );
 	update_post_meta( $user_id, 'billing_name', $first_name . ' ' . $last_name );
 
 	// unset the user fields in session
