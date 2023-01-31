@@ -171,6 +171,23 @@ function pmproan2c_pmpro_registration_checks() {
 }
 add_filter( 'pmpro_registration_checks', 'pmproan2c_pmpro_registration_checks' );
 
+function pmproan2c_pmpro_checkout_new_user_array( $new_user_array ) {
+	global $current_user;
+
+	if ( ! $current_user->ID ) {
+		//reload the user fields
+		if ( ! empty( $_SESSION['first_name'] ) ) {
+			$new_user_array['first_name'] = $_SESSION['first_name'];
+		}
+		if ( ! empty( $_SESSION['last_name'] ) ) {
+			$new_user_array['last_name'] = $_SESSION['last_name'];
+		}
+	}
+
+	return $new_user_array;
+}
+add_filter( 'pmpro_checkout_new_user_array', 'pmproan2c_pmpro_checkout_new_user_array' );
+
 /**
  * Update the user after checkout.
  */
@@ -199,7 +216,12 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 
 	update_user_meta( $user_id, 'first_name', $first_name );
 	update_user_meta( $user_id, 'last_name', $last_name );
-	update_post_meta( $user_id, 'billing_name', $first_name.' '.$last_name);
+	update_user_meta( $user_id, 'display_name', $first_name . ' ' . $last_name );
+	update_post_meta( $user_id, 'billing_name', $first_name . ' ' . $last_name );
+
+	// unset the user fields in session
+	unset( $_SESSION['first_name'] );
+	unset( $_SESSION['last_name'] );
 }
 add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_checkout' );
 
