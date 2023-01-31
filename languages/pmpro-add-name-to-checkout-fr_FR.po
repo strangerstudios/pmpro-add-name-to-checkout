@@ -1,17 +1,17 @@
-# Copyright (C) 2021 Stranger Studios
+# Copyright (C) 2023 Stranger Studios
 # This file is distributed under the same license as the Paid Memberships Pro - Add Name to Checkout Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Add Name to Checkout Add On 0.5\n"
+"Project-Id-Version: Paid Memberships Pro - Add Name to Checkout Add On 0.6.1\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-06T14:02:04+00:00\n"
+"POT-Creation-Date: 2023-01-31T13:35:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pmpro-add-name-to-checkout\n"
 
 #: pmpro-add-name-to-checkout.php:90
@@ -49,6 +49,7 @@ msgid "Stranger Studios"
 msgstr ""
 
 #: pmpro-add-name-to-checkout.php:251
+#: pmpro-add-name-to-checkout.php:281
 msgid "Support"
 msgstr ""
 
@@ -65,5 +66,6 @@ msgid "The last name field is required."
 msgstr ""
 
 #: pmpro-add-name-to-checkout.php:251
+#: pmpro-add-name-to-checkout.php:281
 msgid "Visit Customer Support Forum"
 msgstr ""
