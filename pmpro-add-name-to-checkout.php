@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Add Name to Checkout Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/
 Description: Adds first and last name fields to the user account section at checkout for Paid Memberships Pro.
-Version: 0.6.0
+Version: 0.6.1
 Text Domain: pmpro-add-name-to-checkout
 Domain Path: /languages
 Author: Stranger Studios
@@ -171,6 +171,14 @@ function pmproan2c_pmpro_registration_checks() {
 }
 add_filter( 'pmpro_registration_checks', 'pmproan2c_pmpro_registration_checks' );
 
+/**
+ * Hook into Paid Memberships Pro default new user array for registration and pull information from $_SESSION if it's available.
+ *
+ * @since 0.6.1
+ * 
+ * @param $array $new_user_array The array with user information to create a new WordPress user.
+ * @return array $new_user_array The array with user information to create a new WordPress user.
+ */
 function pmproan2c_pmpro_checkout_new_user_array( $new_user_array ) {
 	global $current_user;
 
