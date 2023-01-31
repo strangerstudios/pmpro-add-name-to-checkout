@@ -177,10 +177,10 @@ function pmproan2c_pmpro_checkout_new_user_array( $new_user_array ) {
 	if ( ! $current_user->ID ) {
 		//reload the user fields
 		if ( ! empty( $_SESSION['first_name'] ) ) {
-			$new_user_array['first_name'] = $_SESSION['first_name'];
+			$new_user_array['first_name'] = sanitize_text_field( $_SESSION['first_name'] );
 		}
 		if ( ! empty( $_SESSION['last_name'] ) ) {
-			$new_user_array['last_name'] = $_SESSION['last_name'];
+			$new_user_array['last_name'] = sanitize_text_field( $_SESSION['last_name'] );
 		}
 	}
 
