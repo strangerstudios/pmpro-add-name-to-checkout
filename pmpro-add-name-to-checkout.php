@@ -86,9 +86,9 @@ function pmproan2c_account_info_when_logged_in() {
 	?>
 	<hr />
 	<div id="pmpro_user_fields" class="pmpro_checkout">
-		<h3>
-			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>
-		</h3>
+		<h2>
+			<span class="pmpro_checkout-h2-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>
+		</h2>
 		<div class="pmpro_checkout-fields">
 			<?php pmproan2c_pmpro_checkout_after_password(); ?>
 		</div>
@@ -175,7 +175,7 @@ add_filter( 'pmpro_registration_checks', 'pmproan2c_pmpro_registration_checks' )
  * Hook into Paid Memberships Pro default new user array for registration and pull information from $_SESSION if it's available.
  *
  * @since 0.6.1
- * 
+ *
  * @param $array $new_user_array The array with user information to create a new WordPress user.
  * @return array $new_user_array The array with user information to create a new WordPress user.
  */
