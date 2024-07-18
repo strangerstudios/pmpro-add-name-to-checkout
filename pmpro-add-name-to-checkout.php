@@ -76,6 +76,8 @@ add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_pas
 
 /**
  * If the user is logged in, we still want to show our version of the account info section.
+ *
+ * Note: it would be nice in v3.1+ for this to be included in the same logged-in Account Info box above. We will consider a hook so this can display inside the box.
  */
 function pmproan2c_account_info_when_logged_in() {
 	global $current_user;
@@ -88,7 +90,7 @@ function pmproan2c_account_info_when_logged_in() {
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
 			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
-					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Account Information', 'paid-memberships-pro' ); ?></h2>
+					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Your Name', 'paid-memberships-pro' ); ?></h2>
 				</legend>
 				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
 					<?php pmproan2c_pmpro_checkout_after_password(); ?>
@@ -98,7 +100,7 @@ function pmproan2c_account_info_when_logged_in() {
 	</fieldset> <!-- end pmpro_user_fields -->
 	<?php
 }
-add_action( 'pmpro_checkout_after_pricing_fields', 'pmproan2c_account_info_when_logged_in' );
+add_action( 'pmpro_checkout_after_user_fields', 'pmproan2c_account_info_when_logged_in' );
 
 /**
  * Require the fields.
