@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: Paid Memberships Pro - Add Name to Checkout Add On
+Plugin Name: Paid Memberships Pro - Add Name to Checkout
 Plugin URI: https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/
 Description: Adds first and last name fields to the user account section at checkout for Paid Memberships Pro.
-Version: 0.6.1
+Version: 0.7
 Text Domain: pmpro-add-name-to-checkout
 Domain Path: /languages
-Author: Stranger Studios
-Author URI: http://www.strangerstudios.com
+Author: Paid Memberships Pro
+Author URI: https://www.paidmembershipspro.com/
 */
 
 /*
@@ -63,11 +63,11 @@ function pmproan2c_pmpro_checkout_after_password() {
 	}
 	?>
 	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-firstname', 'pmpro_form_field-firstname' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
-		<label for="first_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php _e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
+		<label for="first_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
 		<input id="first_name" name="first_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $first_name ); ?>" />
 	</div>
 	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-lastname', 'pmpro_form_field-lastname' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
-		<label for="last_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php _e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
+		<label for="last_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
 		<input id="last_name" name="last_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $last_name ); ?>" />
 	</div>
 	<?php

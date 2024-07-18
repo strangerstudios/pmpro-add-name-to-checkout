@@ -1,9 +1,9 @@
-=== Paid Memberships Pro - Add Name to Checkout Add On ===
+=== Paid Memberships Pro - Add Name to Checkout ===
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, first name, fname, last name, lname, names
-Requires at least: 3.5
-Tested up to: 5.8.1
-Stable tag: 0.6.1
+Requires at least: 5.2
+Tested up to: 6.6
+Stable tag: 0.7
 
 Adds first and last name fields to the Paid Memberships Pro checkout page.
 
@@ -28,6 +28,9 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 0.7 - 2024-07-18 =
+* ENHANCEMENT: Updated the frontend UI for compatibility with PMPro v3.1.
+
 = 0.6.1 - 2023-01-31 =
 * BUG FIX/EHANCMENT: Improved logic for offsite gateways that use PHP Sessions. Fixes an issue where PayPal Express (and other offsite gateways) weren't saving the first name and last name correctly. (@mircobabini)
 
