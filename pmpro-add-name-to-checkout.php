@@ -62,13 +62,13 @@ function pmproan2c_pmpro_checkout_after_password() {
 		$last_name = '';
 	}
 	?>
-	<div class="pmpro_checkout-field pmpro_checkout-field-firstname">
-		<label for="first_name"><?php _e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
-		<input id="first_name" name="first_name" type="text" class="input <?php echo $first_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'first_name' ); ?>" size="30" value="<?php echo esc_attr( $first_name ); ?>" />
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-firstname', 'pmpro_form_field-firstname' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
+		<label for="first_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php _e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
+		<input id="first_name" name="first_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $first_name ); ?>" />
 	</div>
-	<div class="pmpro_checkout-field pmpro_checkout-field-lastname">
-		<label for="last_name"><?php _e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
-		<input id="last_name" name="last_name" type="text" class="input <?php echo $last_name_required ? esc_attr( 'pmpro_required' ) : ''; ?> <?php echo pmpro_getClassForField( 'last_name' ); ?>" size="30" value="<?php echo esc_attr( $last_name ); ?>" />
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-lastname', 'pmpro_form_field-lastname' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
+		<label for="last_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php _e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
+		<input id="last_name" name="last_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $last_name ); ?>" />
 	</div>
 	<?php
 }
@@ -84,15 +84,18 @@ function pmproan2c_account_info_when_logged_in() {
 		return;
 	}
 	?>
-	<hr />
-	<div id="pmpro_user_fields" class="pmpro_checkout">
-		<h3>
-			<span class="pmpro_checkout-h3-name"><?php _e('Account Information', 'pmpro-add-name-to-checkout' );?></span>
-		</h3>
-		<div class="pmpro_checkout-fields">
-			<?php pmproan2c_pmpro_checkout_after_password(); ?>
-		</div>
-	</div>
+	<fieldset id="pmpro_user_fields" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_user_fields' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
+					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Account Information', 'paid-memberships-pro' ); ?></h2>
+				</legend>
+				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
+					<?php pmproan2c_pmpro_checkout_after_password(); ?>
+				</div> <!-- end pmpro_form_fields -->
+			</div> <!-- end pmpro_card_content -->
+		</div> <!-- end pmpro_card -->
+	</fieldset> <!-- end pmpro_user_fields -->
 	<?php
 }
 add_action( 'pmpro_checkout_after_pricing_fields', 'pmproan2c_account_info_when_logged_in' );
@@ -278,6 +281,7 @@ add_action( 'pmpro_before_send_to_payfast', 'pmproan2c_pmpro_paypalexpress_sessi
 function pmproan2c_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-add-name-to-checkout.php' ) !== false ) {
 		$new_links = array(
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/add-first-last-name-to-checkout/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-add-name-to-checkout' ) ) . '">' . __( 'Docs', 'pmpro-add-name-to-checkout' ) . '</a>',
 			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-add-name-to-checkout' ) ) . '">' . __( 'Support', 'pmpro-add-name-to-checkout' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
@@ -285,7 +289,6 @@ function pmproan2c_plugin_row_meta( $links, $file ) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'pmproan2c_plugin_row_meta', 10, 2 );
-
 
 /**
  * Adds support for Payfast
