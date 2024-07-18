@@ -32,7 +32,7 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 * ENHANCEMENT: Updated the frontend UI for compatibility with PMPro v3.1.
 
 = 0.6.1 - 2023-01-31 =
-* BUG FIX/EHANCMENT: Improved logic for offsite gateways that use PHP Sessions. Fixes an issue where PayPal Express (and other offsite gateways) weren't saving the first name and last name correctly. (@mircobabini)
+* BUG FIX/ENHANCEMENT: Improved logic for offsite gateways that use PHP Sessions. Fixes an issue where PayPal Express (and other offsite gateways) weren't saving the first name and last name correctly. (@mircobabini)
 
 = 0.6.0 - 2021-10-07 =
 * ENHANCEMENT: Support checkouts with PayFast gateway. #23 (@jarrydlong)
