@@ -41,6 +41,10 @@ msgstr ""
 msgid "Last Name"
 msgstr "Nom"
 
+#: pmpro-add-name-to-checkout.php:93
+msgid "Your Name"
+msgstr "Votre nom"
+
 #. Name of the plugin
 #. Plugin Name of the plugin
 msgid "Paid Memberships Pro - Add Name to Checkout Add On"

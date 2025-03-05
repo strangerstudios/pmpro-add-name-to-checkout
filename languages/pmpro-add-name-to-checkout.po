@@ -44,6 +44,10 @@ msgstr ""
 msgid "Last Name"
 msgstr ""
 
+#: pmpro-add-name-to-checkout.php:93
+msgid "Your Name"
+msgstr ""
+
 #: pmpro-add-name-to-checkout.php:90
 msgid "Account Information"
 msgstr ""
