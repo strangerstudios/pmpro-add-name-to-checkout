@@ -62,14 +62,16 @@ function pmproan2c_pmpro_checkout_after_password() {
 		$last_name = '';
 	}
 	?>
-	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-firstname', 'pmpro_form_field-firstname' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
-		<label for="first_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
-		<input id="first_name" name="first_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $first_name ); ?>" />
-	</div>
-	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-lastname', 'pmpro_form_field-lastname' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
-		<label for="last_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
-		<input id="last_name" name="last_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $last_name ); ?>" />
-	</div>
+	<div id="pmpro_an2c" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_cols-2', 'pmpro_an2c' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-firstname', 'pmpro_form_field-firstname' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
+			<label for="first_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'First Name', 'pmpro-add-name-to-checkout' ); ?></label>
+			<input id="first_name" name="first_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $first_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $first_name ); ?>" />
+		</div>
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-lastname', 'pmpro_form_field-lastname' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_field-required' ) : ''; ?>">
+			<label for="last_name" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>"><?php esc_html_e( 'Last Name', 'pmpro-add-name-to-checkout' ); ?></label>
+			<input id="last_name" name="last_name" type="text" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text' ) ); ?><?php echo $last_name_required ? esc_attr( ' pmpro_form_input-required' ) : ''; ?>" value="<?php echo esc_attr( $last_name ); ?>" />
+		</div>
+	</div> <!-- end pmpro_an2c -->
 	<?php
 }
 add_action( 'pmpro_checkout_after_password', 'pmproan2c_pmpro_checkout_after_password' );
