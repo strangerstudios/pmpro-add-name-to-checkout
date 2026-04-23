@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, first name, fname, last name, lname, names
 Requires at least: 5.2
-Tested up to: 6.8
-Stable tag: 0.7.1
+Tested up to: 6.9
+Stable tag: 0.7.2
 
 Adds first and last name fields to the Paid Memberships Pro checkout page.
 
@@ -28,6 +28,9 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 0.7.2 - 2026-04-23 =
+* BUG FIX: Removed an erroneous call to `update_post_meta()` for billing name during checkout. #45 (@andrewlimaza)
+
 = 0.7.1 - 2025-03-05 =
 * ENHANCEMENT: Now showing the first and last name fields on the same line at checkout. #37 (@kimcoleman)
 * ENHANCEMENT: Localized the "Your Name" string for French. #42 (@MaximilianoRicoTabo)
