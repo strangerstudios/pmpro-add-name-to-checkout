@@ -42,6 +42,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 	 */
 	$last_name_required = apply_filters( 'pmproan2c_last_name_required', true );
 
+	if ( isset( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_SESSION['first_name'] );
@@ -123,6 +124,7 @@ function pmproan2c_pmpro_registration_checks() {
 	$first_name_required = apply_filters( 'pmproan2c_first_name_required', true );
 	$last_name_required  = apply_filters( 'pmproan2c_last_name_required', true );
 
+	if ( isset( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_SESSION['first_name'] ) );
