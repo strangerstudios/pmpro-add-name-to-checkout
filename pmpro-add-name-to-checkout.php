@@ -205,7 +205,7 @@ add_filter( 'pmpro_checkout_new_user_array', 'pmproan2c_pmpro_checkout_new_user_
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	global $current_user;
 
-	if ( isset( $_REQUEST['first_name'] ) ) {
+	if ( isset( $_REQUEST['first_name'] ) && '' !== trim( sanitize_text_field( $_REQUEST['first_name'] ) ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_SESSION['first_name'] ) );
@@ -215,7 +215,7 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 		$first_name = '';
 	}
 
-	if ( isset( $_REQUEST['last_name'] ) ) {
+	if ( isset( $_REQUEST['last_name'] ) && '' !== trim( sanitize_text_field( $_REQUEST['last_name'] ) ) ) {
 		$last_name = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_SESSION['last_name'] ) );
