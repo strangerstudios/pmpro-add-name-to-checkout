@@ -42,7 +42,6 @@ function pmproan2c_pmpro_checkout_after_password() {
 	 */
 	$last_name_required = apply_filters( 'pmproan2c_last_name_required', true );
 
-	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_SESSION['first_name'] );
@@ -52,7 +51,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 		$first_name = '';
 	}
 
-	if ( ! empty( $_REQUEST['last_name'] ) ) {
+	if ( isset( $_REQUEST['last_name'] ) ) {
 		$last_name = sanitize_text_field( $_REQUEST['last_name'] );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = sanitize_text_field( $_SESSION['last_name'] );
@@ -110,7 +109,7 @@ add_action( 'pmpro_checkout_after_user_fields', 'pmproan2c_account_info_when_log
  * @return bool `true` if registration check passed, `false` if not.
  */
 function pmproan2c_pmpro_registration_checks() {
-	global $pmpro_msg, $pmpro_msgt, $current_user, $pmpro_error_fields;
+	global $pmpro_msg, $pmpro_msgt, $pmpro_error_fields;
 
 	$pmproan2c_error_fields  = array();
 	$pmproan2c_error_message = '';
@@ -124,27 +123,22 @@ function pmproan2c_pmpro_registration_checks() {
 	$first_name_required = apply_filters( 'pmproan2c_first_name_required', true );
 	$last_name_required  = apply_filters( 'pmproan2c_last_name_required', true );
 
-	if ( ! empty( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_SESSION['first_name'] ) );
-	} elseif ( is_user_logged_in() ) {
-		$first_name = $current_user->first_name;
 	} else {
 		$first_name = '';
 	}
 
-	if ( ! empty( $_REQUEST['last_name'] ) ) {
+	if ( isset( $_REQUEST['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_SESSION['last_name'] ) );
-	} elseif ( is_user_logged_in() ) {
-		$last_name = $current_user->last_name;
 	} else {
 		$last_name = '';
 	}
 
-	if ( $first_name && $last_name || $current_user->ID ) {
+	if ( ( $first_name || ! $first_name_required ) && ( $last_name || ! $last_name_required ) ) {
 		//all good
 		return true;
 	} else {
@@ -209,7 +203,7 @@ add_filter( 'pmpro_checkout_new_user_array', 'pmproan2c_pmpro_checkout_new_user_
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	global $current_user;
 
-	if ( ! empty( $_REQUEST['first_name'] ) ) {
+	if ( isset( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_SESSION['first_name'] ) );
@@ -219,7 +213,7 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 		$first_name = '';
 	}
 
-	if ( ! empty( $_REQUEST['last_name'] ) ) {
+	if ( isset( $_REQUEST['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_SESSION['last_name'] ) );
