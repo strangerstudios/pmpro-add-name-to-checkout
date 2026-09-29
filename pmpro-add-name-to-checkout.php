@@ -130,7 +130,7 @@ function pmproan2c_pmpro_registration_checks() {
 	$first_name_required = apply_filters( 'pmproan2c_first_name_required', true );
 	$last_name_required  = apply_filters( 'pmproan2c_last_name_required', true );
 
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs on pmpro_registration_checks after PMPro verifies pmpro_checkout_nonce in preheaders/checkout.php.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs on pmpro_registration_checks; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( isset( $_REQUEST['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -213,7 +213,7 @@ add_filter( 'pmpro_checkout_new_user_array', 'pmproan2c_pmpro_checkout_new_user_
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	global $current_user;
 
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs on pmpro_after_checkout after PMPro verifies pmpro_checkout_nonce in preheaders/checkout.php. Values go to update_user_meta(), which expects slashed input.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs on pmpro_after_checkout; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php. Values go to update_user_meta(), which expects slashed input.
 	if ( isset( $_REQUEST['first_name'] ) && '' !== trim( sanitize_text_field( $_REQUEST['first_name'] ) ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -249,7 +249,7 @@ add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_
  * Update the name on the order.
  */
 function pmproan2c_pmpro_checkout_order( $order ) {
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Order is only saved after PMPro verifies pmpro_checkout_nonce in preheaders/checkout.php.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( empty( $order->FirstName ) ) {
 		$order->FirstName = ( isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) ) : '' );
 	}
@@ -279,7 +279,7 @@ add_filter( 'pmpro_checkout_order_free', 'pmproan2c_pmpro_checkout_order' );
  * Save our added fields in session while the user goes off to PayPal/etc
  */
 function pmproan2c_pmpro_paypalexpress_session_vars() {
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs during checkout processing after PMPro verifies pmpro_checkout_nonce in preheaders/checkout.php. Session values are later passed to wp_insert_user()/update_user_meta(), which expect slashed input.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php. Session values are later passed to wp_insert_user()/update_user_meta(), which expect slashed input.
 	$_SESSION['first_name'] = isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( $_REQUEST['first_name'] ) ) : '';
 	$_SESSION['last_name']  = isset( $_REQUEST['last_name'] ) ? trim( sanitize_text_field( $_REQUEST['last_name'] ) ) : '';
 	// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -309,7 +309,7 @@ add_filter( 'plugin_row_meta', 'pmproan2c_plugin_row_meta', 10, 2 );
 
 function pmproan2c_before_send_to_payfast( $user_id, $morder ){
 
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout processing after PMPro verifies pmpro_checkout_nonce in preheaders/checkout.php.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( empty( $morder->FirstName ) ) {
 		$morder->FirstName = ( isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) ) : '' );
 	}
