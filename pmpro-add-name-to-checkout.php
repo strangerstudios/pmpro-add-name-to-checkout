@@ -10,6 +10,10 @@ Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com/
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 	Load plugin textdomain.
 */
@@ -42,8 +46,9 @@ function pmproan2c_pmpro_checkout_after_password() {
 	 */
 	$last_name_required = apply_filters( 'pmproan2c_last_name_required', true );
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only prefill of the checkout form.
 	if ( isset( $_REQUEST['first_name'] ) ) {
-		$first_name = sanitize_text_field( $_REQUEST['first_name'] );
+		$first_name = sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = sanitize_text_field( $_SESSION['first_name'] );
 	} elseif ( is_user_logged_in() ) {
@@ -53,7 +58,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 	}
 
 	if ( isset( $_REQUEST['last_name'] ) ) {
-		$last_name = sanitize_text_field( $_REQUEST['last_name'] );
+		$last_name = sanitize_text_field( wp_unslash( $_REQUEST['last_name'] ) );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = sanitize_text_field( $_SESSION['last_name'] );
 	} elseif ( is_user_logged_in() ) {
@@ -61,6 +66,7 @@ function pmproan2c_pmpro_checkout_after_password() {
 	} else {
 		$last_name = '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	?>
 	<div id="pmpro_an2c" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_cols-2', 'pmpro_an2c' ) ); ?>">
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-firstname', 'pmpro_form_field-firstname' ) ); ?>">
@@ -124,8 +130,9 @@ function pmproan2c_pmpro_registration_checks() {
 	$first_name_required = apply_filters( 'pmproan2c_first_name_required', true );
 	$last_name_required  = apply_filters( 'pmproan2c_last_name_required', true );
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs on pmpro_registration_checks; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( isset( $_REQUEST['first_name'] ) ) {
-		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
+		$first_name = trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
 		$first_name = trim( sanitize_text_field( $_SESSION['first_name'] ) );
 	} else {
@@ -133,12 +140,13 @@ function pmproan2c_pmpro_registration_checks() {
 	}
 
 	if ( isset( $_REQUEST['last_name'] ) ) {
-		$last_name = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+		$last_name = trim( sanitize_text_field( wp_unslash( $_REQUEST['last_name'] ) ) );
 	} elseif ( ! empty( $_SESSION['last_name'] ) ) {
 		$last_name = trim( sanitize_text_field( $_SESSION['last_name'] ) );
 	} else {
 		$last_name = '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	if ( ( $first_name || ! $first_name_required ) && ( $last_name || ! $last_name_required ) ) {
 		//all good
@@ -205,6 +213,7 @@ add_filter( 'pmpro_checkout_new_user_array', 'pmproan2c_pmpro_checkout_new_user_
 function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	global $current_user;
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs on pmpro_after_checkout; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php. Values go to update_user_meta(), which expects slashed input.
 	if ( isset( $_REQUEST['first_name'] ) && '' !== trim( sanitize_text_field( $_REQUEST['first_name'] ) ) ) {
 		$first_name = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
 	} elseif ( ! empty( $_SESSION['first_name'] ) ) {
@@ -224,6 +233,7 @@ function pmproan2c_update_first_and_last_name_after_checkout( $user_id ) {
 	} else {
 		$last_name = '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
 	update_user_meta( $user_id, 'first_name', $first_name );
 	update_user_meta( $user_id, 'last_name', $last_name );
@@ -239,12 +249,13 @@ add_action( 'pmpro_after_checkout', 'pmproan2c_update_first_and_last_name_after_
  * Update the name on the order.
  */
 function pmproan2c_pmpro_checkout_order( $order ) {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( empty( $order->FirstName ) ) {
-		$order->FirstName = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
+		$order->FirstName = ( isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) ) : '' );
 	}
 
 	if ( empty( $order->LastName ) ) {
-		$order->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+		$order->LastName = ( isset( $_REQUEST['last_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['last_name'] ) ) ) : '' );
 	}
 
 	// Free orders won't have a billing object.
@@ -255,8 +266,9 @@ function pmproan2c_pmpro_checkout_order( $order ) {
 
 	// Trimming because something in testing was adding spaces.
 	if ( empty( trim( $order->billing->name ) ) ) {
-		$order->billing->name = trim( sanitize_text_field( $_REQUEST['first_name'] ) ) . ' ' . trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+		$order->billing->name = ( isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) ) : '' ) . ' ' . ( isset( $_REQUEST['last_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['last_name'] ) ) ) : '' );
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	return $order;
 }
@@ -267,8 +279,10 @@ add_filter( 'pmpro_checkout_order_free', 'pmproan2c_pmpro_checkout_order' );
  * Save our added fields in session while the user goes off to PayPal/etc
  */
 function pmproan2c_pmpro_paypalexpress_session_vars() {
-	$_SESSION['first_name'] = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
-	$_SESSION['last_name']  = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php. Session values are later passed to wp_insert_user()/update_user_meta(), which expect slashed input.
+	$_SESSION['first_name'] = isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( $_REQUEST['first_name'] ) ) : '';
+	$_SESSION['last_name']  = isset( $_REQUEST['last_name'] ) ? trim( sanitize_text_field( $_REQUEST['last_name'] ) ) : '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmproan2c_pmpro_paypalexpress_session_vars' );
 add_action( 'pmpro_before_send_to_twocheckout', 'pmproan2c_pmpro_paypalexpress_session_vars' );
@@ -295,13 +309,15 @@ add_filter( 'plugin_row_meta', 'pmproan2c_plugin_row_meta', 10, 2 );
 
 function pmproan2c_before_send_to_payfast( $user_id, $morder ){
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout processing; PMPro checks pmpro_checkout_nonce in preheaders/checkout.php.
 	if ( empty( $morder->FirstName ) ) {
-		$morder->FirstName = trim( sanitize_text_field( $_REQUEST['first_name'] ) );
+		$morder->FirstName = ( isset( $_REQUEST['first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['first_name'] ) ) ) : '' );
 	}
 
 	if ( empty( $morder->LastName ) ) {
-		$morder->LastName = trim( sanitize_text_field( $_REQUEST['last_name'] ) );
+		$morder->LastName = ( isset( $_REQUEST['last_name'] ) ? trim( sanitize_text_field( wp_unslash( $_REQUEST['last_name'] ) ) ) : '' );
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	$morder->saveOrder();
 
