@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Paid Memberships Pro - Add Name to Checkout plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Add Name to Checkout 0.7.2\n"
+"Project-Id-Version: Paid Memberships Pro - Add Name to Checkout 0.7.4\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-12T12:33:44+00:00\n"
+"POT-Creation-Date: 2026-09-29T15:42:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-add-name-to-checkout\n"
@@ -39,42 +39,42 @@ msgstr ""
 msgid "https://www.paidmembershipspro.com/"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:67
+#: pmpro-add-name-to-checkout.php:73
 msgid "First Name"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:71
+#: pmpro-add-name-to-checkout.php:77
 msgid "Last Name"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:95
+#: pmpro-add-name-to-checkout.php:101
 msgid "Your Name"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:148
+#: pmpro-add-name-to-checkout.php:156
 msgid "The first and last name fields are required."
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:150
+#: pmpro-add-name-to-checkout.php:158
 msgid "The first name field is required."
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:152
+#: pmpro-add-name-to-checkout.php:160
 msgid "The last name field is required."
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:283
+#: pmpro-add-name-to-checkout.php:297
 msgid "View Documentation"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:283
+#: pmpro-add-name-to-checkout.php:297
 msgid "Docs"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:284
+#: pmpro-add-name-to-checkout.php:298
 msgid "Visit Customer Support Forum"
 msgstr ""
 
-#: pmpro-add-name-to-checkout.php:284
+#: pmpro-add-name-to-checkout.php:298
 msgid "Support"
 msgstr ""
